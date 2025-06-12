@@ -3,11 +3,7 @@ const functions = require("firebase-functions");
 const users = require("./user-config");
 
 exports.testTelegramNotification = functions.https.onRequest(async (req, res) => {
-    const user = {
-        nombre: users[0].nombre,
-        telegramBotToken: users[0].telegramBotToken,
-        telegramChatId: users[0].telegramChatId
-    };
+    const user = users[0];
 
     try {
         console.log("🚀 Enviando mensaje a Telegram para:", user);

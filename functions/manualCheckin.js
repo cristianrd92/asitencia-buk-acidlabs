@@ -9,7 +9,7 @@ exports.marcarEntradaManual = functions
         const user = users[0];
 
         try {
-            await marcarEnBuk(user, "ENTRADA");
+            await marcarEnBuk(user, 1);
             const msg = `✅ Entrada registrada manualmente para ${user.nombre}`;
             await notifyTelegram(user, msg);
             res.status(200).send(msg);
@@ -26,7 +26,7 @@ exports.marcarSalidaManual = functions
         const user = users[0];
 
         try {
-            await marcarEnBuk(user, "SALIDA");
+            await marcarEnBuk(user, 2);
             const msg = `✅ Salida registrada manualmente para ${user.nombre}`;
             await notifyTelegram(user, msg);
             res.status(200).send(msg);

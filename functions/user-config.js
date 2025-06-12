@@ -2,6 +2,7 @@ module.exports = [
   {
     nombre: "Cristian Ramírez",
     email: "cramirezd@acid.cl",
+    rut: "18041574-2",
     password: "McLarenF1@",
     telegramBotToken: "5725513520:AAHQEvrX5_YxBg69HfM1dOA_ET-A0SNW94Y",
     telegramChatId: "-831075068",

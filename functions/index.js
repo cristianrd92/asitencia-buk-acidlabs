@@ -5,12 +5,13 @@ const { notifyTelegram } = require("./notifyTelegram");
 const users = require("./user-config");
 
 function programarMarcaje(hora, sentido) {
+    const sentidoTexto = sentido == 1 ? 'ENTRADA' : 'SALIDA';
     return functions
         .runWith({ memory: "1GB", timeoutSeconds: 60 })
         .pubsub.schedule(hora)
         .timeZone("America/Santiago")
         .onRun(async () => {
-            console.log(`🕒 Ejecutando marcaje programado para sentido: ${sentido} a las ${hora}`);
+            console.log(`🕒 Ejecutando marcaje programado para sentido: ${sentidoTexto} a las ${hora}`);
 
             const feriado = await esFeriadoHoy();
             const esVacaciones = false;
@@ -18,7 +19,7 @@ function programarMarcaje(hora, sentido) {
                 console.log(`🚫 Hoy es feriado: ${feriado}. No se ejecutará el marcaje.`);
 
                 for (const user of users) {
-                    const mensaje = `🚫 Hoy es feriado en Chile: *${feriado}* – no se ejecutó el marcaje de ${sentido}`;
+                    const mensaje = `🚫 Hoy es feriado en Chile: *${feriado}* – no se ejecutó el marcaje de ${sentidoTexto}`;
                     await notifyTelegram(user, mensaje);
                 }
                 return;
@@ -28,7 +29,7 @@ function programarMarcaje(hora, sentido) {
                 console.log(`🚫 Hoy se encuentra de vacaciones. No se ejecutará el marcaje.`);
 
                 for (const user of users) {
-                    const mensaje = `🚫 Hoy se encuentra de vacaciones. No se ejecutará el marcaje de ${sentido}`;
+                    const mensaje = `🚫 Hoy se encuentra de vacaciones. No se ejecutará el marcaje de ${sentidoTexto}`;
                     await notifyTelegram(user, mensaje);
                 }
                 return;
@@ -38,22 +39,22 @@ function programarMarcaje(hora, sentido) {
                 try {
                     console.log(`🚀 Iniciando proceso de marcaje para: ${user.nombre}`);
                     await marcarEnBuk(user, sentido);
-                    const mensaje = `✅ ${sentido} registrada correctamente para ${user.nombre}`;
+                    const mensaje = `✅ ${sentidoTexto} registrada correctamente para ${user.nombre}`;
                     await notifyTelegram(user, mensaje);
                     console.log(`📬 Notificación enviada a Telegram para ${user.nombre}`);
                 } catch (error) {
-                    const errorMsg = `❌ Error al registrar ${sentido} para ${user.nombre}: ${error.message}`;
+                    const errorMsg = `❌ Error al registrar ${sentidoTexto} para ${user.nombre}: ${error.message}`;
                     console.error(errorMsg);
                     await notifyTelegram(user, errorMsg);
                 }
             }
 
-            console.log(`✅ Finalizó ejecución de marcaje ${sentido}`);
+            console.log(`✅ Finalizó ejecución de marcaje ${sentidoTexto}`);
         });
 }
 
-exports.marcarEntrada = programarMarcaje("00 9 * * 1-5", "ENTRADA");
-exports.marcarSalida = programarMarcaje("00 18 * * 1-5", "SALIDA");
+exports.marcarEntrada = programarMarcaje("00 9 * * 1-5", 1);
+exports.marcarSalida = programarMarcaje("00 18 * * 1-5", 2);
 exports.testTelegramNotification = require("./testTelegram").testTelegramNotification;
 exports.marcarEntradaManual = require("./manualCheckin").marcarEntradaManual;
 exports.marcarSalidaManual = require("./manualCheckin").marcarSalidaManual;
