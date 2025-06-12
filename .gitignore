@@ -1,0 +1,30 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Firebase cache and build
+.firebase/
+.firebaserc
+
+# Env config (no subir tus credenciales)
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Puppeteer Chromium downloads (si lo usás con puppeteer-core)
+.chromium/
+
+# VS Code config (opcional, para mantener limpio)
+.vscode/
+
+# IDEs
+.idea/
+*.iml
+*.swp
