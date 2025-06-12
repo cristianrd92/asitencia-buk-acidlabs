@@ -67,15 +67,15 @@ Ejemplo:
 ```js
 module.exports = [
   {
-    nombre: "Manuel Gonzalez",
-    email: "m3gonzalez.cl@gmail.com",
+    nombre: "Cristian Ramírez",
+    email: "cristianrd92@gmail.com",
     password: process.env.BUK_PASSWORD,
     telegramBotToken: process.env.TELEGRAM_TOKEN,
     telegramChatId: process.env.TELEGRAM_CHAT,
     latitud: -33.4528512,
     longitud: -70.6281472,
-    urlLogin: "https://23people.buk.cl/users/sign_in",
-    urlPortal: "https://23people.buk.cl/static_pages/portal"
+    urlLogin: "https://acidlabs.buk.cl/users/sign_in",
+    urlPortal: "https://acidlabs.buk.cl/static_pages/portal"
   }
 ];
 ```
