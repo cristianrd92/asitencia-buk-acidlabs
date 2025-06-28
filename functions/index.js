@@ -25,11 +25,11 @@ function programarMarcajeConDelay(sentido) {
 
       const feriado = await esFeriadoHoy();
       const vacacionesActivas = await esVacaciones()
+      let esDiaLibreProgramadoHoy = false;
 
-      // Si ambas son falsas, verificamos si hay un día libre programado, si no, simplemente omitimos busqueda en bd
+      // Si ambas son falsas, verificamos si hay un día libre programado, si no, simplemente omitimos busqueda en bd      
       if (!feriado && !vacacionesActivas) {
         const marcajeConfigDoc = await db.collection("config").doc("marcaje").get();
-        let esDiaLibreProgramadoHoy = false;
         if (marcajeConfigDoc.exists && marcajeConfigDoc.data().fechaDiaLibreProgramado) {
           const fechaDiaLibreTimestamp = marcajeConfigDoc.data().fechaDiaLibreProgramado;
           const fechaDiaLibre = fechaDiaLibreTimestamp.toDate();
