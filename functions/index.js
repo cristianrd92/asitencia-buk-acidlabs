@@ -59,7 +59,7 @@ function programarMarcajeConDelay(sentido) {
           motivo = "día libre";
         }
         for (const user of users) {
-          await notifyTelegram(user, `🚫 Hoy es ${motivo}. No se ejecutó el marcaje de ${sentidoTexto}`);
+          await notifyTelegram(user, `🚫 Hoy es ${motivo}. No se ejecutó el marcaje automatico de ${sentidoTexto}`);
         }
         return;
       }
@@ -67,7 +67,7 @@ function programarMarcajeConDelay(sentido) {
       for (const user of users) {
         try {
           await marcarEnBuk(user, sentido);
-          await notifyTelegram(user, `✅ ${sentidoTexto} registrada correctamente para ${user.nombre}`);
+          await notifyTelegram(user, `✅ ${sentidoTexto} registrada de manera automatica correctamente para ${user.nombre}`);
         } catch (error) {
           await notifyTelegram(user, `❌ Error al registrar ${sentidoTexto} para ${user.nombre}: ${error.message}`);
         }
